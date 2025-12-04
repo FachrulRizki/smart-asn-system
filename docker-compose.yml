@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  # 1. DATABASE (PostgreSQL)
+  # Ini adalah database utama aplikasi
+  db:
+    image: postgres:15-alpine
+    container_name: asn_postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: asn_db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password123
+      # --- TAMBAHKAN DUA BARIS INI ---
+      POSTGRES_HOST_AUTH_METHOD: trust
+      PGDATA: /var/lib/postgresql/data/pgdata
+      # ------------------------------
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  # 2. STORAGE (MinIO)
+  # Ini pengganti AWS S3 untuk simpan foto/dokumen di local
+  minio:
+    image: minio/minio
+    container_name: asn_minio
+    ports:
+      - "9000:9000"     # Port API
+      - "9001:9001"     # Port Dashboard Web
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: password123
+    volumes:
+      - minio_data:/data
+
+# Volume agar data tidak hilang saat docker dimatikan
+volumes:
+  pgdata:
+  minio_data:
