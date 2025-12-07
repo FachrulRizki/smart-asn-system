@@ -14,33 +14,45 @@ function DocumentUploader() {
     e.preventDefault();
     if (!file) return;
 
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setMessage("ERROR: Anda belum login. Silakan login ulang.");
+      return;
+    }
+
     setLoading(true);
     setMessage("Mengunggah dan memproses OCR...");
 
     const formData = new FormData();
+
     formData.append("file", file);
-    // formData.append('asn_id', '123-456-789'); // Kirim ID ASN
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:5000/api/v1/ocr/process",
+        "http://127.0.0.1:8000/api/v1/documents/upload",
         {
           method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            // Accept: "application/json",
+          },
           body: formData,
         }
       );
 
-      const data = await response.json();
+      const text = await response.text();
+
+    //   console.log("RAW Laravel Response:", text);
+
+      const data = JSON.parse(text);
 
       if (response.ok) {
-        setMessage(
-          `SUCCESS: ${data.message}`
-        );
-        console.log("Full OCR Data:", data.ocr_data);
+        const extractedInfo =
+          data?.ocr_data?.ocr_data?.extracted_nip || "Data NIP tidak ditemukan";
+
+        setMessage(`SUCCESS: ${data.message} (NIP: ${extractedInfo})`);
       } else {
-        setMessage(
-          `ERROR: ${data.message} - ${data.error || data.ai_error.message}`
-        );
+        setMessage(`ERROR: ${data.message || "Terjadi kesalahan pada server"}`);
       }
     } catch (error) {
       setMessage(`Gagal terhubung ke Laravel API: ${error.message}`);

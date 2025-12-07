@@ -48,6 +48,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
+            \Illuminate\Http\Middleware\HandleCors::class,
             ThrottleRequests::class . ':api',
             SubstituteBindings::class,
         ],
