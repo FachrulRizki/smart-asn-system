@@ -23,7 +23,7 @@ function DocumentUploader() {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/api/v1/documents/upload",
+        "http://127.0.0.1:5000/api/v1/ocr/process",
         {
           method: "POST",
           body: formData,
@@ -34,7 +34,7 @@ function DocumentUploader() {
 
       if (response.ok) {
         setMessage(
-          `SUCCESS: ${data.message}. Hasil OCR: ${data.ocr_data.extracted_nip}`
+          `SUCCESS: ${data.message}`
         );
         console.log("Full OCR Data:", data.ocr_data);
       } else {
