@@ -1,0 +1,118 @@
+# ===========================
+# GLOBAL SYSTEM / IDE
+# ===========================
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+
+# ===========================
+# ENVIRONMENT FILES (SENSITIF)
+# ===========================
+.env
+.env.*
+**/.env
+**/.env.*
+*.env
+!*.env.example     # allow example file
+
+# ===========================
+# ROOT DOCKER / INFRA
+# ===========================
+docker-compose.yml          # root docker compose (sensitive)
+infra/*.env                 # env inside infra
+infra/*.key
+infra/*.pem
+infra/*.crt
+
+# allow template files in infra
+!infra/docker-compose.yml.template
+!infra/.env.example
+!infra/readme.md
+
+# disallow everything else inside infra if needed
+# but allow templates/documentation only
+# infra/*
+# !infra/*.template
+# !infra/*.md
+
+# ===========================
+# PYTHON (ai-service)
+# ===========================
+ai-service/__pycache__/
+ai-service/*.pyc
+ai-service/*.pyo
+ai-service/*.pyd
+ai-service/.pytest_cache/
+ai-service/venv/
+ai-service/env/
+ai-service/.mypy_cache/
+ai-service/.ruff_cache/
+
+# ===========================
+# NODE / FRONTEND
+# ===========================
+frontend/node_modules/
+frontend/.parcel-cache/
+frontend/.next/
+frontend/dist/
+frontend/build/
+frontend/.turbo/
+frontend/npm-debug.log
+frontend/yarn-debug.log
+frontend/yarn-error.log
+frontend/pnpm-debug.log
+
+# ===========================
+# LARAVEL (backend)
+# ===========================
+backend/vendor/
+backend/node_modules/
+backend/public/storage
+backend/storage/*.key
+backend/storage/app/*
+backend/storage/framework/cache/*
+backend/storage/framework/sessions/*
+backend/storage/framework/views/*
+backend/storage/logs/*
+backend/.phpunit.cache/
+backend/.php-cs-fixer.cache
+
+# Laravel auto ignored files
+backend/composer.lock
+backend/phpunit.xml
+backend/package-lock.json
+
+# ===========================
+# LOGS / TEMP
+# ===========================
+*.log
+*.pid
+*.seed
+*.pid.lock
+*.swp
+*.swo
+
+# ===========================
+# SECURITY SENSITIVE
+# ===========================
+*.pem
+*.key
+*.crt
+*.cert
+*.der
+*.p12
+*.jks
+*.keystore
+*.tfstate
+*.tfstate.backup
+*.sqlite
+*.sqlite3
+
+# ===========================
+# BACKUP FILES
+# ===========================
+*.bak
+*.tmp
+*.old
