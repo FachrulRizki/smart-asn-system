@@ -1,0 +1,29 @@
+# Node / Python / PHP common
+node_modules/
+venv/
+.env
+**/.env
+**/.env.local
+**/.env.*.local
+
+# Composer / Laravel
+backend/vendor/
+backend/node_modules/
+
+# React build
+react/build/
+
+# Python venv
+ai-service/venv/
+
+# Ignore infra sensitive files but keep docs
+infra/*
+!infra/readme.md
+!infra/docker-compose.yml.template
+!infra/.env.example
+
+# Local system files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
