@@ -15,13 +15,13 @@ Thumbs.db
 **/.env
 **/.env.*
 *.env
-!*.env.example     # allow example file
+!*.env.example
 
 # ===========================
 # ROOT DOCKER / INFRA
 # ===========================
-docker-compose.yml          # root docker compose (sensitive)
-infra/*.env                 # env inside infra
+docker-compose.yml
+infra/*.env
 infra/*.key
 infra/*.pem
 infra/*.crt
